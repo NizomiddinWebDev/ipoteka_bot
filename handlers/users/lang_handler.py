@@ -35,10 +35,10 @@ async def language_change(message: types.Message):
         pass
     elif message.text == const.UZBEK:
         await set_user_lang(message.chat.id, const.LANG.get('uz'))
-        await send_settings(message.chat.id, user.lang)
+        await send_settings(message.chat.id, const.LANG.get('uz'))
     elif message.text == const.RUSSIAN:
         await set_user_lang(message.chat.id, const.LANG.get('ru'))
-        await send_settings(message.chat.id, user.lang)
+        await send_settings(message.chat.id, const.LANG.get('ru'))
     else:
         await send_error_choice(message.chat.id, user.lang)
 

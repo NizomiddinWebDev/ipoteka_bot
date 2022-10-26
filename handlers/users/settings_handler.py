@@ -14,11 +14,14 @@ async def settings_handler(message: types.Message):
         user = await getUser(message.chat.id)
     except:
         user = None
+    print(user.lang)
+    print(message.text)
+    print(const.CHANGE_LANGUAGE[user.lang])
     if not user:
         await send_error(message.chat)
-    elif message.text == const.CHANGE_LANGUAGE[user.lang]:
+    elif message.text == const.CHANGE_LANGUAGE[f'{user.lang}']:
         await send_change_language(message.chat.id, user.lang)
-    elif message.text == const.BACK[user.lang]:
+    elif message.text == const.BACK[f'{user.lang}']:
         await send_main_menu(user)
     else:
         await bot.send_message(message.chat.id, message.text)
