@@ -13,8 +13,6 @@ from states.userState import UserState
 from .valyuta_func import get_currency
 from ..db_api.model import getUser, new_user_add
 
-branches_list = []
-
 
 async def check_phone_number(phone_number):
     if phone_number and len(phone_number) == 12 and phone_number.isdecimal() and phone_number.startswith("998"):
@@ -30,13 +28,13 @@ async def get_phone_number(contact):
     return contact.phone_number[1:]
 
 
-async def check_user(chat_id, tg_user_id):
+async def check_user(chat_id, tg_user_id, full_name):
     try:
         user = await getUser(chat_id)
     except:
         user = None
     if not user:
-        await new_user_add(chat_id, tg_user_id)
+        await new_user_add(chat_id, tg_user_id, full_name)
         await send_welcome(chat_id)
         await ask_language(chat_id)
     elif not user.lang:
@@ -288,7 +286,9 @@ async def send_mobile_app_message(chat_id, lang):
 
 # branches
 async def send_branches_message(chat_id, lang):
-    url = "http://192.168.80.155:7002/api/v3/knowledge_base/branches/"
+    global branches_list
+    branches_list = []
+    url = "http://dicore.uz:5005/api/v3/knowledge_base/branches/?page_size=1000"
     branches_json = requests.get(url).json()
     for branch in branches_json["results"]:
         branches_list.append({
@@ -300,22 +300,23 @@ async def send_branches_message(chat_id, lang):
             "address": branch['address']
         })
     data = [branch['title'] for branch in branches_list]
+    print(len(data))
     rkm = ReplyKeyboardMarkup(resize_keyboard=True)
     rkm.add(*data)
     rkm.add(const.BACK[lang])
-    bot.send_message(chat_id, '🏦 Филиалы и банкоматы', reply_markup=rkm)
-    # bot.send_message(chat_id, const.CHOOSE[lang],
-    #                  reply_markup=utils.get_buttons(const.BRANCHES_MIX_KEYBOARD, lang))
-    bot.set_state(chat_id, UserState.branches)
+    await bot.send_message(chat_id, '🏦 Филиалы и банкоматы', reply_markup=rkm)
+    # await bot.send_message(chat_id, const.CHOOSE[lang],
+    #                        reply_markup=button.get_buttons(const.BRANCHES_MIX_KEYBOARD, lang))
+    await UserState.branches.set()
 
 
-def get_branches_messages(message, chat_id):
+async def get_branches_messages(message, chat_id):
     for branch in branches_list:
-        # print(branch)
+        print(len(branch))
         if branch['title'] == message.text:
             text = f"{branch['address']}, {branch['id']}"
-            bot.send_message(chat_id, text)
-            bot.send_location(chat_id, branch['lng'], branch['lat'])
+            await bot.send_message(chat_id, text)
+            await bot.send_location(chat_id, branch['lng'], branch['lat'])
 
 
 # settings

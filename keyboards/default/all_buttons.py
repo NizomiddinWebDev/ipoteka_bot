@@ -71,3 +71,9 @@ def get_contributions_keyboards(contribs, lang):
         buttons.add(*(KeyboardButton(contrib.title.ru) for contrib in contribs))
     buttons.add(KeyboardButton(const.BACK[lang]))
     return buttons
+
+
+def get_back_button(lang):
+    buttons = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+    buttons.add(KeyboardButton(const.BACK[lang]))
+    return buttons

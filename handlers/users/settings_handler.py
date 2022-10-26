@@ -14,9 +14,6 @@ async def settings_handler(message: types.Message):
         user = await getUser(message.chat.id)
     except:
         user = None
-    print(user.lang)
-    print(message.text)
-    print(const.CHANGE_LANGUAGE[user.lang])
     if not user:
         await send_error(message.chat)
     elif message.text == const.CHANGE_LANGUAGE[f'{user.lang}']:

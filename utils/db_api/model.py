@@ -22,6 +22,7 @@ data = Table(
     Column('tg_user_id', Integer, unique=True),
     Column('chat_id', Integer),
     Column('phone_number', String),
+    Column('full_name', String),
     Column('lang', String),
     Column('is_verified', Boolean),
     Column('code', String),
@@ -38,6 +39,7 @@ class TelegramUser(Base):
     tg_user_id = Column(Integer, unique=True)
     chat_id = Column(String)
     phone_number = Column(String)
+    full_name = Column(String)
     lang = Column(String)
     is_verified = Column(Boolean, default=False)
     code = Column(String)
@@ -56,12 +58,13 @@ class TelegramUser(Base):
 """This is User database """
 
 
-async def new_user_add(chat_id, tg_user_id):
+async def new_user_add(chat_id, tg_user_id, full_name):
     Session = sessionmaker(bind=engine)
     session = Session()
     customer = TelegramUser(
         tg_user_id=tg_user_id,
         chat_id=chat_id,
+        full_name=full_name,
     )
     session.add(customer)
     session.commit()
@@ -71,6 +74,13 @@ async def getUser(user_id):
     Session = sessionmaker(bind=engine)
     session = Session()
     result = session.query(TelegramUser).filter(TelegramUser.tg_user_id == user_id).one()
+    return result
+
+
+async def get_user_name(full_name):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    result = session.query(TelegramUser).filter(TelegramUser.full_name == full_name).one()
     return result
 
 
