@@ -283,6 +283,7 @@ async def send_entrepreneur_message(chat_id, lang):
 # mobile app
 async def send_mobile_app_message(chat_id, lang):
     await send_no_content(chat_id, lang)
+    await bot.send_message(chat_id, f"https://play.google.com/store/apps/details?id=uz.asbt.ipoteka.mobile")
 
 
 # branches
