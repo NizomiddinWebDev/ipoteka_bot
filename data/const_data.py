@@ -1,11 +1,27 @@
 import requests
 import json
+#Basaniki
+PERSONAL = 'personal'
+LEGAL_ENTITY = 'legal_entity'
+ENTREPRENEUR = 'entrepreneur'
+
+UZS = 'uzs'
+USD = 'usd'
+EUR = 'eur'
+
+FROM_OFFICE = "office"
+FROM_MOBILE = "mobile"
+#Basaniki
 
 # from bot import information
 # Most used:
+
+UZ='uz'
+RU='ru'
+
 LANG = {
-    "uz": "uz",
-    "ru": "ru"
+    "uz": UZ,
+    "ru": RU
 }
 BACK = {
     "uz": "⬅️ Orqaga",
