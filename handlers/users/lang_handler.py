@@ -22,7 +22,7 @@ async def language(message: types.Message):
         await set_user_lang(message.chat.id, const.LANG.get('ru'))
         await ask_contact(message.chat.id, const.LANG.get('ru'))
     else:
-        pass
+        await message.answer("Xatolik")
 
 
 @dp.message_handler(state=UserState.change_language)
