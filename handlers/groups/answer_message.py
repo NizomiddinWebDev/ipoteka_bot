@@ -16,4 +16,4 @@ async def answer_user(message: types.Message):
                 user = await get_user_name(full_name=message.reply_to_message.forward_sender_name)
                 await message.bot.send_message(user.tg_user_id, message.text)
             except:
-                await message.answer("<b>Bu foydalanuvchining maxfiylik sozlamalari tufayli xabar yuborib bo'lmadi!</b>")
+                await message.answer("<b>Bu foydalanuvchining Maxfiylik sozlamalari tufayli xabar yuborib bo'lmadi!</b>")
