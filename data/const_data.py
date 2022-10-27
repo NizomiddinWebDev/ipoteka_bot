@@ -1,6 +1,7 @@
 import requests
 import json
-#Basaniki
+
+# Basaniki
 PERSONAL = 'personal'
 LEGAL_ENTITY = 'legal_entity'
 ENTREPRENEUR = 'entrepreneur'
@@ -11,13 +12,19 @@ EUR = 'eur'
 
 FROM_OFFICE = "office"
 FROM_MOBILE = "mobile"
-#Basaniki
+# Basaniki
+
+
+NATURAL_PERSONS = {
+    "uz": "Jismoniy shaxslarga",
+    "ru": "Частным лицам"
+}
 
 # from bot import information
 # Most used:
 
-UZ='uz'
-RU='ru'
+UZ = 'uz'
+RU = 'ru'
 
 LANG = {
     "uz": UZ,
@@ -121,12 +128,17 @@ CONTACT_US = {
 
 # url = 'http://192.168.31.19:8001/api/v3/service-desk/product/for_telegram'
 # response = requests.request("GET", url).json()
+def info():
+    with open("data/data.json", "r", encoding="utf-8") as bot_data:
+        res = json.load(bot_data)
+        return res
 
 
 # Keyboard in Personal:
-
+response = info()
+MAIN_BTNS = [i["title"] for i in response if i["parent"] == 795]
 MAIN_MENU_KEYBOARD = [
-    PERSONAL, COURSE_CURRENCY, BRANCHES_N_MINIBANKS, MOBILE_APP, SETTINGS]
+    *MAIN_BTNS, COURSE_CURRENCY, BRANCHES_N_MINIBANKS, MOBILE_APP, SETTINGS]
 
 DEPOSITS = {
     "uz": "🗄 Omonatlar",
@@ -152,6 +164,8 @@ CONTRIBUTIONS = {
     'uz': '🏦 Hissalar',
     'ru': "🏦 Вклады",
 }
+
+
 
 PERSONAL_KEYBOARDS = (DEPOSITS, CREDITS, CARDS, MONEY_TRANSFERS, CONTRIBUTIONS, BACK)
 

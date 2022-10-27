@@ -121,7 +121,7 @@ async def send_sms(phone):
     else:
         pass
 
-
+# personal
 async def send_personal_message(chat_id, lang):
     await bot.send_message(chat_id, const.CHOOSE[lang], reply_markup=button.get_buttons(const.PERSONAL_KEYBOARDS, lang))
     await UserState.personal.set()
@@ -353,3 +353,199 @@ async def send_error_choice(chat_id, lang):
 # end function
 async def send_no_content(chat_id, lang):
     await bot.send_message(chat_id, const.NO_CONTENT[lang])
+
+
+async def child_buttons(parent):
+    bts = [btn["title"] for btn in const.response if btn["parent"] == parent]
+    return bts
+
+
+async def send_dynamic_btns(chat_id, lang, children=None, body=None):
+    if children:
+        await bot.send_message(chat_id, const.CHOOSE[lang],
+                               reply_markup=button.get_dynamic_buttons(children, lang))
+    else:
+        # print(body)
+        await bot.send_message(chat_id, body, parse_mode='html')
+
+
+# contributions
+async def send_contrib_message(chat_id, lang):
+    await bot.send_message(chat_id, const.CHOOSE[lang],
+                     reply_markup=button.get_buttons(const.CONTRIBUTION_KEYBOARDS, lang))
+    await bot.set_state(chat_id, UserState.contributions)
+
+
+# contributions - via bank
+
+def send_contrib_via_bank_message(chat_id, lang):
+    bot.send_message(chat_id, const.CHOOSE[lang],
+                     reply_markup=utils.get_buttons(const.CONTRIBUTION_VIA_BANK_KEYBOARDS, lang))
+    bot.set_state(chat_id, UserState.contributions_via_bank)
+
+
+# contributions - via mobile
+def send_contrib_via_mobile_message(chat_id, lang):
+    bot.send_message(chat_id, const.VIA_MOBILE_CONTRIBUTION[lang], parse_mode='HTML',
+                     reply_markup=utils.get_buttons(const.VIA_MOBILE_CONTRIBUTION_KEYBOARD, lang))
+    bot.set_state(chat_id, UserState.contributions_via_mobile)
+
+
+# contributions - via bank - via nationan and internation currency
+def send_contrib_via_national_currency_message(chat_id, lang):
+    bot.send_message(chat_id, const.VIA_NATIONAL_CURRENCY[lang], parse_mode='HTML')
+
+
+# money transfers - categories
+# def send_money_transfers_categories(chat_id, lang):
+def send_money_transfers_types(chat_id, lang):
+    bot.send_message(chat_id, const.CHOOSE[lang],
+                     reply_markup=utils.get_buttons(const.MONEY_TRANSFERS_KEYBOARD, lang))
+    bot.set_state(chat_id, UserState.money_transfers)
+
+
+# money transfers
+# western inner functions
+def send_money_transfers_western_types(chat_id, lang):
+    bot.send_message(chat_id, const.CHOOSE[lang],
+                     reply_markup=utils.get_buttons(const.WESTERN_UNION_KEYBOARD, lang))
+    bot.set_state(chat_id, UserState.money_transfers_western)
+
+
+def send_money_transfers_western_central_asia_msg(chat_id, lang):
+    bot.send_message(chat_id, const.CHOOSE[lang], parse_mode='HTML',
+                     reply_markup=utils.get_buttons(const.WESTERN_CENTRAL_ASIA_KEYBOARD, lang))
+    bot.set_state(chat_id, UserState.money_transfers_western_central_asia)
+
+
+def send_money_transfers_western_central_asia_special_msg(chat_id, lang):
+    bot.send_message(chat_id, const.WESTERN_CENTRAL_ASIA_SPECIAL_MSG[lang], parse_mode='HTML')
+
+
+def send_money_transfers_western_central_asia_twelwe_hours_msg(chat_id, lang):
+    bot.send_message(chat_id, const.WESTERN_CENTRAL_ASIA_TWELWE_HOURS_MSG[lang], parse_mode='HTML')
+
+
+def send_money_transfers_western_china_msg(chat_id, lang):
+    bot.send_message(chat_id, const.WESTERN_CHINA_MSG[lang], parse_mode='HTML')
+
+
+def send_money_transfers_western_oae(chat_id, lang):
+    bot.send_message(chat_id, const.WESTERN_OAE_MSG[lang], parse_mode='HTML')
+
+
+def send_money_transfers_western_all_countries(chat_id, lang):
+    bot.send_message(chat_id, const.WESTERN_ALL_COUNTRIES_MSG[lang], parse_mode='HTML')
+
+
+# OAE types and all
+def send_money_transfers_western_oae_types(chat_id, lang):
+    bot.send_message(chat_id, const.CHOOSE[lang],
+                     reply_markup=utils.get_buttons(const.WESTERN_UNION_KEYBOARD, lang), parse_mode='HTML')
+    bot.set_state(chat_id, UserState.money_transfers_western)
+
+
+# golden crone
+# zolataya korona msg
+
+def send_unistream_msg(chat_id, lang):
+    bot.send_message(chat_id, const.UNISTREAM_MSG[lang], parse_mode='HTML')
+
+
+def send_ria_msg(chat_id, lang):
+    bot.send_message(chat_id, const.RIA_MSG[lang], parse_mode='HTML')
+
+
+def send_money_transfers_golden_crone(chat_id, lang):
+    bot.send_message(chat_id, const.CHOOSE[lang],
+                     reply_markup=utils.get_buttons(const.GOLDEN_CRONE_KEYBOARD, lang))
+    bot.send_message(chat_id, const.GOLDEN_CRONE_FREE[lang], parse_mode='HTML')
+    bot.set_state(chat_id, UserState.money_transfers_golden_crone)
+
+
+def send_money_transfers_golden_crone_asia_message(chat_id, lang):
+    bot.send_message(chat_id, const.GOLDEN_CRONE_ASIA_MSG[lang], parse_mode='HTML')
+
+
+def send_money_transfers_golden_crone_europe_message(chat_id, lang):
+    bot.send_message(chat_id, const.GOLDEN_CRONE_EUROPE_MSG[lang], parse_mode='HTML')
+
+
+def send_money_transfers_golden_crone_central_asia_msg(chat_id, lang):
+    bot.send_message(chat_id, const.GOLDEN_CRONE_CENTRAL_ASIA_MSG[lang], parse_mode='HTML')
+
+
+def send_money_transfers_golden_crone_china_message(chat_id, lang):
+    bot.send_message(chat_id, const.GOLDEN_CRONE_CHINA_MSG[lang], parse_mode='HTML')
+
+
+def send_money_transfers_golden_crone_korea(chat_id, lang):
+    bot.send_message(chat_id, const.GOLDEN_CRONE_KOREA_MSG[lang], parse_mode='HTML')
+
+
+def send_money_transfers_paysend_msg(chat_id, lang):
+    bot.send_message(chat_id, const.PAYSEND_MSG[lang], parse_mode='HTML')
+
+
+# money transfers asia express side
+def bot_send_asia_express(chat_id, lang):
+    bot.send_message(chat_id, const.CHOOSE[lang],
+                     reply_markup=utils.get_buttons(const.MONEY_TRANSFERS_ASIA_EXPRESS_KEYBOARD, lang),
+                     parse_mode='HTML')
+    bot.set_state(chat_id, UserState.money_transfers_asia_express)
+
+
+def send_money_transfers_asia_express_message(chat_id, lang):
+    bot.send_message(chat_id, const.MONEY_TRANSFERS_ASIA_EXPRESS_MSG[lang], parse_mode='HTML')
+
+
+async def send_contrib_via_internation_currency_message(chat_id, lang):
+    bot.send_message(chat_id, const.VIA_INTERNATION_CURRENCY[lang], parse_mode='HTML')
+
+
+# cards
+
+async def send_personal_national_cards(chat_id, lang):
+    bot.send_message(chat_id, const.CHOOSE[lang],
+                     reply_markup=utils.get_buttons(const.NATIONAL_CURRENCY_CARDS, lang), parse_mode='HTML')
+    bot.set_state(chat_id, UserState.personal_national_card)
+
+
+async def send_personal_national_uzcard_message(chat_id, lang):
+    bot.send_message(chat_id, const.UZCARD_CARD_MSG[lang], parse_mode='HTML')
+
+
+async def send_personal_national_humo_message(chat_id, lang):
+    bot.send_message(chat_id, const.HUMO_CARD_MSG[lang], parse_mode='HTML')
+
+
+async def send_personal_internation_cards(chat_id, lang):
+    bot.send_message(chat_id, const.CHOOSE[lang],
+                     reply_markup=utils.get_buttons(const.INTERNATION_CURRENCY_CARDS, lang))
+    bot.set_state(chat_id, UserState.personal_internation_card)
+
+
+async def send_personal_internation_mastercard_standart_message(chat_id, lang):
+    bot.send_message(chat_id, const.MASTERCARD_STANDART_CARD_MSG[lang], parse_mode='HTML')
+
+
+async def send_personal_internation_mastercard_gold_message(chat_id, lang):
+    bot.send_message(chat_id, const.MASTERCARD_GOLD_CARD_MSG[lang], parse_mode='HTML')
+
+
+# etc
+async def send_currency(chat_id, lang):
+    bot.send_message(chat_id, utils.get_currency(lang), parse_mode="html")
+
+
+async def send_error(chat_id):
+    bot.send_message(chat_id, const.ERROR)
+    bot.set_state(chat_id, UserState.start)
+
+
+async def send_error_choice(chat_id, lang):
+    bot.send_message(chat_id, const.ERROR_CHOICE[lang])
+
+
+async def send_no_content(chat_id, lang):
+    bot.send_message(chat_id, const.NO_CONTENT[lang])

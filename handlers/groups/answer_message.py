@@ -8,7 +8,6 @@ from utils.db_api.model import get_user_name
 @dp.message_handler(IsAdmin(), IsGroup())
 async def answer_user(message: types.Message):
     if message.reply_to_message:
-        print(message.reply_to_message)
         if message.reply_to_message.forward_from:
             await message.bot.send_message(message.reply_to_message.forward_from.id, message.text)
         else:
