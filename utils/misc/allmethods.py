@@ -116,6 +116,8 @@ async def send_phone_number_not_found(chat_id, lang):
 async def send_main_menu(user):
     await bot.send_message(user.chat_id, const.MAIN_MENU[user.lang],
                            reply_markup=button.get_main_menu_keyboard(user.lang))
+    await bot.send_message(user.chat_id, const.CONNECT_CONSULTANT[user.lang])
+
     await UserState.main_menu.set()
 
 

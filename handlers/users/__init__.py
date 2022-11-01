@@ -1,12 +1,11 @@
-from . import help
-from . import adminhandler
-from . import start
-from . import lang_handler
-from . import phone_number_handler
-from . import main_menu_handler
-from . import settings_handler
-from . import call_center_handler
-from . import branch_handler
-from . import chaild_state_handler
-# from . import commandHandler
-
+from handlers.users.help import *
+from handlers.users.adminhandler import *
+from handlers.users.start import *
+from handlers.users.lang_handler import *
+from handlers.users.phone_number_handler import *
+from handlers.users.main_menu_handler import *
+from handlers.users.settings_handler import *
+from handlers.users.call_center_handler import *
+from handlers.users.branch_handler import *
+from handlers.users.chaild_state_handler import *
+from handlers.users.start import *

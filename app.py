@@ -1,38 +1,13 @@
-# from aiogram import executor
-#
-# from loader import dp
-# import middlewares, filters, handlers
-# from utils.notify_admins import on_startup_notify
-# from utils.set_bot_commands import set_default_commands
-#
-#
-# async def on_startup(dispatcher):
-#     # Birlamchi komandalar (/star va /help)
-#     await set_default_commands(dispatcher)
-#
-#     # Bot ishga tushgani haqida adminga xabar berish
-#     await on_startup_notify(dispatcher)
-#
-#
-# if __name__ == '__main__':
-#     executor.start_polling(dp, on_startup=on_startup)
-
 import logging
-from aiogram import Bot, types
-from aiogram.contrib.middlewares.logging import LoggingMiddleware
 
-from aiogram.dispatcher.webhook import SendMessage, get_new_configured_app
 from aiogram.utils import executor
-
-# webhook settings
-from data import config
-from loader import bot, dp
+from handlers import *
 
 from utils import on_startup_notify
 from utils.set_bot_commands import set_default_commands
 
-WEBHOOK_HOST = 'https://0aa9-81-95-230-194.eu.ngrok.io'
-WEBHOOK_PATH = f"/app/{config.BOT_TOKEN}"
+WEBHOOK_HOST = 'https://0bf7-81-95-230-194.eu.ngrok.io'
+WEBHOOK_PATH = ''
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 
 # webserver settings
@@ -45,7 +20,7 @@ logging.basicConfig(level=logging.INFO)
 async def on_startup(dispatcher):
     await bot.set_webhook(WEBHOOK_URL)
     await set_default_commands(dispatcher)
-    await on_startup_notify(dispatcher)
+
     # insert code here to run it after start
 
 

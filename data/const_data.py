@@ -82,7 +82,7 @@ VERIFIED_MESSAGE = {
 
 # Main menu:
 MAIN_MENU = {
-    "uz": "Asosiy menyu",
+    "uz": f"Asosiy menyu",
     "ru": "Главное меню",
 }
 
@@ -126,6 +126,12 @@ CONTACT_US = {
     "ru": "☎ ️Связаться с нами",
 }
 
+CONNECT_CONSULTANT = {
+    "uz": f"Konsultant bilan bog'lanish uchun asosiy menyudagi \n<b>{CONTACT_US['uz']} ➡️ ✍️Konsultantga yozish</b> bo'limiga o'ting.",
+    "ru": f"Чтобы связаться с консультантом, перейдите в \n<b>{CONTACT_US['ru']} ➡️ ✍️Написать консультанту</b>  в главном меню.",
+}
+
+
 # url = 'http://192.168.31.19:8001/api/v3/service-desk/product/for_telegram'
 # response = requests.request("GET", url).json()
 def info():
@@ -164,8 +170,6 @@ CONTRIBUTIONS = {
     'uz': '🏦 Hissalar',
     'ru': "🏦 Вклады",
 }
-
-
 
 PERSONAL_KEYBOARDS = (DEPOSITS, CREDITS, CARDS, MONEY_TRANSFERS, CONTRIBUTIONS, BACK)
 
@@ -1534,13 +1538,13 @@ SETTINGS_KEYBOARDS = (CHANGE_LANGUAGE, BACK)
 
 # Contact us:
 CALL_BANK = {
-    "uz": "Bankga qo'ng'iroq qilish",
-    "ru": "Позвонить в Банк",
+    "uz": "📞Bankga qo'ng'iroq qilish",
+    "ru": "📞Позвонить в Банк",
 }
 
 WRITE_CONSULTANT = {
-    "uz": "Konsultantga yozish",
-    "ru": "Написать консультанту",
+    "uz": "✍️Konsultantga yozish",
+    "ru": "✍️Написать консультанту",
 }
 
 CALL_US = {
