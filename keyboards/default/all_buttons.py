@@ -1,7 +1,6 @@
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from data import const_data as const
 from data.const_data import UZ
-from loader import bot
 
 
 def get_dynamic_buttons(buttons, lang=None, n=2):

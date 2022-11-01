@@ -48,13 +48,6 @@ class TelegramUser(Base):
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
 
-# async def get_region(hold, place):
-#     Session = sessionmaker(bind=engine)
-#     session = Session()
-#     result = session.query(distinct(CustomData.region)).filter(CustomData.hold == hold, CustomData.place == place)
-#     return result
-
-
 """This is User database """
 
 
@@ -116,22 +109,16 @@ async def set_user_verified(tg_user_id):
 
 
 #
-async def getGroupList():
+async def getUserList():
     Session = sessionmaker(bind=engine)
     session = Session()
-    result = session.query(TelegramUser).filter(TelegramUser == "group").all()
+    result = session.query(TelegramUser).all()
     return result
 
+
 #
-# async def getUsersCount():
-#     Session = sessionmaker(bind=engine)
-#     session = Session()
-#     result = session.query(Customers).filter(Customers.type == "user").count()
-#     return result
-#
-#
-# async def getGroupsCount():
-#     Session = sessionmaker(bind=engine)
-#     session = Session()
-#     result = session.query(Customers).filter(Customers.type == "group").count()
-#     return result
+async def getUsersCount():
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    result = session.query(TelegramUser).count()
+    return result

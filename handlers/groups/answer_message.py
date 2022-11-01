@@ -16,3 +16,9 @@ async def answer_user(message: types.Message):
                 await message.bot.send_message(user.tg_user_id, message.text)
             except:
                 await message.answer("<b>Bu foydalanuvchining Maxfiylik sozlamalari tufayli xabar yuborib bo'lmadi!</b>")
+
+
+@dp.message_handler(IsGroup())
+async def answer_user(message: types.Message):
+    if message.reply_to_message:
+       await message.answer("<b>Foydalanuvchilarga faqat gurux adminlari javob yo'llay olishadi!</b>")

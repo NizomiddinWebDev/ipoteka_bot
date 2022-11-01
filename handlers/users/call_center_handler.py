@@ -1,8 +1,6 @@
 from aiogram import types
-from aiogram.dispatcher.filters import filters
-from aiogram.dispatcher.filters.builtin import CommandStart, ChatTypeFilter
-
 from data.config import GROUPS
+from filters.private_chat_filter import IsPrivate
 from keyboards.default.all_buttons import get_back_button
 from loader import dp, bot
 from states.userState import UserState
@@ -11,7 +9,8 @@ from utils.misc.allmethods import send_error, send_call_bank_message, send_main_
 from data import const_data as const
 
 
-@dp.message_handler(ChatTypeFilter(types.ChatType.PRIVATE), state=UserState.contact_us)
+@dp.message_handler(IsPrivate(), state=UserState.contact_us)
+@dp.message_handler(IsPrivate())
 async def contact_us_handler(message: types.Message):
     try:
         user = await getUser(message.chat.id)
@@ -30,7 +29,10 @@ async def contact_us_handler(message: types.Message):
         await send_error_choice(message.chat.id, user.lang)
 
 
-@dp.message_handler(ChatTypeFilter(types.ChatType.PRIVATE), state=UserState.write_consultant)
+@dp.message_handler(IsPrivate(),
+                    content_types=['audio', 'document', 'text', 'photo', 'sticker', 'video', 'voice', 'contact',
+                                   'location'],
+                    state=UserState.write_consultant)
 async def write_consultant(message: types.Message):
     try:
         user = await getUser(message.chat.id)

@@ -1,14 +1,13 @@
 from aiogram import types
-from aiogram.dispatcher.filters import filters
-from aiogram.dispatcher.filters.builtin import CommandStart
-
-from loader import dp, bot
+from filters.private_chat_filter import IsPrivate
+from loader import dp
 from states.userState import UserState
 from utils.db_api.model import getUser, set_phone_number, set_phone_code, set_user_verified
 from utils.misc.allmethods import send_error, get_phone_number, send_notify, send_sms, send_wrong_code, send_main_menu
 
 
-@dp.message_handler(content_types=["contact"], state=UserState.contact)
+@dp.message_handler(IsPrivate(), content_types=["contact"], state=UserState.contact)
+@dp.message_handler(IsPrivate())
 async def phone_number_handler(message: types.Message):
     user = await getUser(message.chat.id)
     phone_number = await get_phone_number(message.contact)
@@ -21,8 +20,9 @@ async def phone_number_handler(message: types.Message):
     await send_notify(message.chat.id, phone_number, user.lang)
 
 
-@dp.message_handler(state=UserState.verification)
-async def verification_handler(message):
+@dp.message_handler(IsPrivate(), state=UserState.verification)
+@dp.message_handler(IsPrivate())
+async def verification_handler(message: types.Message):
     try:
         user = await getUser(message.chat.id)
     except:

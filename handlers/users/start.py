@@ -1,15 +1,10 @@
 from aiogram import types
-from aiogram.dispatcher.filters import filters
-
-from aiogram.dispatcher.filters.builtin import CommandStart, ChatTypeFilter
-
-from loader import dp, bot
-from utils.db_api.model import new_user_add, getUser
-
+from aiogram.dispatcher.filters.builtin import CommandStart
+from filters.private_chat_filter import IsPrivate
+from loader import dp
 from utils.misc.allmethods import check_user
 
 
-@dp.message_handler(CommandStart(), ChatTypeFilter(types.ChatType.PRIVATE))
+@dp.message_handler(IsPrivate(), CommandStart())
 async def start(message: types.Message):
-    await message.answer(message.chat.id)
     await check_user(message.chat.id, message.from_user.id, message.from_user.full_name)

@@ -1,5 +1,5 @@
 from aiogram import types
-from aiogram.dispatcher.filters import filters
+from filters.private_chat_filter import IsPrivate
 from loader import dp, bot
 from states.userState import UserState
 from utils.db_api.model import getUser
@@ -7,9 +7,9 @@ from data import const_data as const
 from utils.misc.allmethods import send_error, send_change_language, send_main_menu
 
 
-@dp.message_handler(state=UserState.settings)
+@dp.message_handler(IsPrivate(), state=UserState.settings)
+@dp.message_handler(IsPrivate())
 async def settings_handler(message: types.Message):
-    await message.answer("Ishladi")
     try:
         user = await getUser(message.chat.id)
     except:
