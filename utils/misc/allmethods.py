@@ -30,6 +30,13 @@ async def get_by_lang(text, lang):
         return text[ru_index + 3:]
 
 
+async def get_data_from_database():
+    url = 'http://192.168.80.155:7002/api/v3/service-desk/product/for_telegram'
+    response = requests.request("GET", url).json()
+    with open('data/data.json', 'w', encoding='utf-8') as file:
+        json.dump(response, file, ensure_ascii=False)
+
+
 async def check_phone_number(phone_number):
     if phone_number and len(phone_number) == 12 and phone_number.isdecimal() and phone_number.startswith("998"):
         return True
@@ -260,5 +267,3 @@ async def send_contrib_message(chat_id, lang):
     await bot.send_message(chat_id, const.CHOOSE[lang],
                            reply_markup=button.get_buttons(const.CONTRIBUTION_KEYBOARDS, lang))
     await  UserState.contributions.set()
-
-
