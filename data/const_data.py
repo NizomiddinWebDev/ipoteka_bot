@@ -135,7 +135,7 @@ CONNECT_CONSULTANT = {
 # url = 'http://192.168.31.19:8001/api/v3/service-desk/product/for_telegram'
 # response = requests.request("GET", url).json()
 def info():
-    with open("data/data2.json", "r", encoding="utf-8") as bot_data:
+    with open("data/data.json", "r", encoding="utf-8") as bot_data:
         res = json.load(bot_data)
         return res
 
