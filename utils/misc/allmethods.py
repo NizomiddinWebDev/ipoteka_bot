@@ -31,7 +31,7 @@ async def get_by_lang(text, lang):
 
 
 async def get_data_from_database():
-    url = 'http://192.168.80.155:7002/api/v3/service-desk/product/for_telegram'
+    url = 'http://192.168.28.81:8006/api/v3/service-desk/product/for_telegram'
     response = requests.request("GET", url).json()
     with open('data/data.json', 'w', encoding='utf-8') as file:
         json.dump(response, file, ensure_ascii=False)
