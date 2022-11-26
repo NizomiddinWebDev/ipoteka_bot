@@ -44,5 +44,8 @@ async def write_consultant(message: types.Message):
         if message.text == const.BACK[user.lang]:
             await send_contact_us(message.from_user.id, user.lang)
         else:
-            await message.forward(GROUPS[0])
-            await message.answer(const.THANKS_FEEDBACK[user.lang])
+            if user.ban:
+                await message.answer("Siz yozish huquqidan mahrum qilingansiz!")
+            else:
+                await message.forward(GROUPS[0])
+                await message.answer(const.THANKS_FEEDBACK[user.lang])
