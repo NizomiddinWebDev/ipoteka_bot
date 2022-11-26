@@ -1,4 +1,5 @@
-from datetime import datetime
+from calendar import monthrange
+from datetime import datetime, timedelta
 
 from sqlalchemy import Column, Integer, String, Boolean, Text, MetaData, distinct, DateTime, Table, Identity
 from sqlalchemy import create_engine
@@ -27,6 +28,8 @@ data = Table(
     Column('is_verified', Boolean),
     Column('code', String),
     Column('send_message_type', String),
+    Column('ban', Boolean),
+    Column('date_ban', String),
     Column('created_date', DateTime),
     Column('updated_at', DateTime),
 )
@@ -44,6 +47,8 @@ class TelegramUser(Base):
     is_verified = Column(Boolean, default=False)
     code = Column(String)
     send_message_type = Column(String)
+    ban = Column(Boolean, default=False)
+    date_ban = Column(String, nullable=True)
     created_date = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
@@ -122,3 +127,27 @@ async def getUsersCount():
     session = Session()
     result = session.query(TelegramUser).count()
     return result
+
+
+async def ban_user(tg_user_id):
+    today_date = datetime.now().date()  # 2021-10-29
+    year = today_date.year
+    month = today_date.month
+
+    days_in_month = monthrange(year, month)[1]
+    next_month = today_date + timedelta(days=days_in_month)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    session.query(TelegramUser).filter(TelegramUser.tg_user_id == tg_user_id).update(
+        {TelegramUser.ban: True})
+    session.query(TelegramUser).filter(TelegramUser.tg_user_id == tg_user_id).update(
+        {TelegramUser.date_ban: str(next_month)})
+    session.commit()
+
+
+async def unban_user(tg_user_id):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    session.query(TelegramUser).filter(TelegramUser.tg_user_id == tg_user_id).update(
+        {TelegramUser.ban: False})
+    session.commit()

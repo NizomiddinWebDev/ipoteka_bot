@@ -3,14 +3,27 @@ from asyncio import sleep
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from data.config import ADMINS
+from filters.private_chat_filter import IsPrivate
 from keyboards.default.adminKeyboard import adminButton, back
 from loader import dp
 from states.adminState import AdminState
+from states.userState import UserState
 from utils.db_api.model import getUserList, getUsersCount
 from aiogram.types import ReplyKeyboardRemove
 
 
 @dp.message_handler(commands='admin')
+@dp.message_handler(IsPrivate(),  state=UserState.child,commands=['admin'])
+@dp.message_handler(IsPrivate(),  state=UserState.main_menu,commands=['admin'])
+@dp.message_handler(IsPrivate(),  state=UserState.change_language,commands=['admin'])
+@dp.message_handler(IsPrivate(),  state=UserState.branches,commands=['admin'])
+@dp.message_handler(IsPrivate(),  state=UserState.write_consultant,commands=['admin'])
+@dp.message_handler(IsPrivate(),  state=UserState.language,commands=['admin'])
+@dp.message_handler(IsPrivate(),  state=UserState.personal,commands=['admin'])
+@dp.message_handler(IsPrivate(),  state=UserState.contact,commands=['admin'])
+@dp.message_handler(IsPrivate(),  state=UserState.start,commands=['admin'])
+@dp.message_handler(IsPrivate(),  state=UserState.settings,commands=['admin'])
+@dp.message_handler(IsPrivate(), state=UserState.contact_us,commands=['admin'])
 async def admin_panel(msg: types.Message):
     user_id = msg.from_user.id
     if str(user_id) in ADMINS:
