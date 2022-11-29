@@ -10,3 +10,4 @@ class AdminState(StatesGroup):
     adminState = State()
     SendUsers = State()
     SendGroup = State()
+    loginState = State()

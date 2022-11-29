@@ -8,7 +8,7 @@ from handlers import *
 from utils import on_startup_notify
 from utils.set_bot_commands import set_default_commands
 
-WEBHOOK_HOST = 'https://1379-188-113-230-250.in.ngrok.io'
+WEBHOOK_HOST = 'https://0d55-81-95-230-194.eu.ngrok.io'
 WEBHOOK_PATH = ''
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 

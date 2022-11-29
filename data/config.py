@@ -9,3 +9,4 @@ GROUPS = [-1001624989323]
 BOT_TOKEN = env.str("BOT_TOKEN")  # Bot toekn
 ADMINS = env.list("ADMINS")  # adminlar ro'yxati
 IP = env.str("ip")  # Xosting ip manzili
+ADMIN_PASSWORD = 'admin123'
